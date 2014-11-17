@@ -5,7 +5,7 @@ import TurtleGraphics.Pen;
 public class circle implements shape{
 
 	
-	private double xPos, yPos, radius;
+	protected double xPos, yPos, radius;
 	
 	public circle(){
 		xPos = 0;
