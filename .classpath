@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/callum/Downloads/BreezySwing.jar"/>
+	<classpathentry kind="lib" path="C:/Users/callum/Downloads/core.jar"/>
+	<classpathentry kind="lib" path="C:/Users/callum/Downloads/G4P.jar"/>
+	<classpathentry kind="lib" path="C:/Users/callum/Downloads/hsa.jar"/>
+	<classpathentry kind="lib" path="C:/Users/callum/Downloads/swt.jar"/>
+	<classpathentry kind="lib" path="C:/Users/callum/Downloads/swt-debug.jar"/>
+	<classpathentry kind="lib" path="C:/Users/callum/Downloads/TerminalIO.jar"/>
+	<classpathentry kind="lib" path="C:/Users/callum/Downloads/TurtleGraphics.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
