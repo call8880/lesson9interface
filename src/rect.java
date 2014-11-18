@@ -2,7 +2,7 @@
 
 import TurtleGraphics.Pen;
 
-public class rect implements shape{
+public class rect extends abstractShape implements shape{
 	
 	private double xPos, yPos, width, height;
 	

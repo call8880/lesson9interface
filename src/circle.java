@@ -2,7 +2,7 @@
 
 import TurtleGraphics.Pen;
 
-public class circle implements shape{
+public class circle extends abstractShape implements shape{
 
 	
 	protected double xPos, yPos, radius;

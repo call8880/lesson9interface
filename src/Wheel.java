@@ -31,3 +31,4 @@ public class Wheel extends circle{
 		String str = "Wheel\nRadius: " + radius + "\nSpokes" + spokes + "\n(x,y)Position: (" + xPos +","+ yPos + ")\nArea" + area();
 		return str;
 	}
+}
