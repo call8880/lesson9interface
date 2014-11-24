@@ -28,7 +28,11 @@ public class Wheel extends circle{
 		spokes = s;
 	}
 	public String toString(){
-		String str = "Wheel\nRadius: " + radius + "\nSpokes" + spokes + "\n(x,y)Position: (" + xPos +","+ yPos + ")\nArea" + area();
+		String str = "Wheel \nRadius: " + radius;
+		str += "\nSpokes" + spokes + "\n(x,y) Position: (";
+		str += xPos +","+ yPos + ")\nArea" + area();
+
 		return str;
 	}
+	
 }

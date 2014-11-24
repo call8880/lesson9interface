@@ -13,7 +13,8 @@ import TurtleGraphics.*;
 public class ShapeGUI extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtinfo;
+	private JTextArea txtinfo;
+	double x,y;
 	StandardPen p;
 	abstractShape s;
 
@@ -73,16 +74,36 @@ public class ShapeGUI extends JFrame {
 		panel.add(btnCircle);
 		
 		JButton btnWheel = new JButton("Wheel");
+		btnWheel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				erase();
+				s = new Wheel(0,0,50,6);
+				s.draw(p);
+				txtinfo.setText(s.toString());
+			}
+		});
 		panel.add(btnWheel);
 		
 		JButton btnrect = new JButton("Rectangle");
 		btnrect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				erase();
+				s = new rect(0,0,50,25);
+				s.draw(p);
+				txtinfo.setText(s.toString());
 			}
 		});
 		panel.add(btnrect);
 		
 		JButton btnTriangle = new JButton("Triangle");
+		btnTriangle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				erase();
+				s = new triangle();
+				s.draw(p);
+				txtinfo.setText(s.toString());
+			}
+		});
 		panel.add(btnTriangle);
 		
 		JLabel lblOptions = new JLabel("Options");
@@ -98,8 +119,8 @@ public class ShapeGUI extends JFrame {
 		btnMove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				double x = Double.parseDouble(JOptionPane.showInputDialog(this, "Enter new x: "));
-				double y = Double.parseDouble(JOptionPane.showInputDialog(this, "Enter new y: "));
+				x = Double.parseDouble(JOptionPane.showInputDialog(this, "Enter new x: "));
+				y = Double.parseDouble(JOptionPane.showInputDialog(this, "Enter new y: "));
 				erase();
 				s.move(x,y);
 				s.draw(p);
@@ -124,7 +145,7 @@ public class ShapeGUI extends JFrame {
 		lblShapeData.setBounds(116, 87, 102, 24);
 		contentPane.add(lblShapeData);
 		
-		txtinfo = new JTextField();
+		txtinfo = new JTextArea();
 		txtinfo.setBackground(Color.YELLOW);
 		txtinfo.setEditable(false);
 		txtinfo.setBounds(116, 122, 308, 128);

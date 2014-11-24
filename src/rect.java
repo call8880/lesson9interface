@@ -1,20 +1,19 @@
 
 
 import TurtleGraphics.Pen;
+import TurtleGraphics.StandardPen;
 
-public class rect extends abstractShape implements shape{
+public class rect extends abstractShape {
 	
-	private double xPos, yPos, width, height;
+	private double width, height;
 	
 	public rect(){
-		xPos = 0;
-		yPos = 0;
+		super();
 		width = 1;
 		height = 1;
 	}
 	public rect(double x, double y, double w, double h){
-		xPos = x;
-		yPos = y;
+		super(x,y);
 		height = h;
 		width = w;
 	}
@@ -39,33 +38,22 @@ public class rect extends abstractShape implements shape{
 	}
 
 
-	public double getXPos() {
-		return xPos;
-	}
-
-	public double getYPos() {
-		return yPos;
-	}
-	
-	public void move(double xloc, double yloc) {
-		xPos = xloc;
-		yPos = yloc;
-		
-	}
-
-
 	public void strechBy(double factor) {
 		height *= factor;
 		width *= factor;
 		
-	}
+	}	
 	
 	public String toString(){
 		String str = "This is a rectangle\n";
-		str += "xloc: " + xPos + "\nyloc: " + yPos + "\n";
-		str += "Area: " + area();
 		str += "\nWidth: " + width;
 		str += "\nheight: " + height;
+		str += "\n" + super.toString();
 		return str;
+	}
+	public double perimeter(){
+		double perimeter = 2 * height + 2 * width;
+		return perimeter;
+		
 	}
 }
