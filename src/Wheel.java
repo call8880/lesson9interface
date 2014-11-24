@@ -31,7 +31,6 @@ public class Wheel extends circle{
 		String str = "Wheel \nRadius: " + radius;
 		str += "\nSpokes" + spokes + "\n(x,y) Position: (";
 		str += xPos +","+ yPos + ")\nArea" + area();
-
 		return str;
 	}
 	

@@ -15,6 +15,7 @@ public class ShapeGUI extends JFrame {
 	private JPanel contentPane;
 	private JTextArea txtinfo;
 	double x,y;
+	double fact;
 	StandardPen p;
 	abstractShape s;
 
@@ -133,6 +134,10 @@ public class ShapeGUI extends JFrame {
 		JButton btnResize = new JButton("Resize");
 		btnResize.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				fact = Double.parseDouble(JOptionPane.showInputDialog(this, "Enter a factor to change the shape by: "));
+				erase();
+				s.strechBy(fact);
+				s.draw(p);
 			}
 		});
 		panel_1.add(btnResize);
