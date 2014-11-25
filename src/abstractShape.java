@@ -25,12 +25,12 @@ public abstract class abstractShape implements shape{
 	public final double getYpos(){
 		return xPos;
 	}
-	public final void move(double xLoc, double yLoc){
+	public void move(double xLoc, double yLoc){
 		xPos = xLoc;
 		yPos = yLoc;
 	}
 	public String toString(){
-		String str = "X-Y Position = " + xPos + "," + yPos;
+		String str = "(x,y) Position = " + xPos + "," + yPos;
 		str += "\nArea = " + area();
 		str += "\nPerimeter =" + perimeter();
 		return str;
