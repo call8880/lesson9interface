@@ -4,23 +4,33 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ButtonModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+
 import java.awt.Color;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
+
 import java.awt.Font;
+
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.LineBorder;
 import javax.swing.AbstractAction;
+
 import java.awt.event.ActionEvent;
+
 import javax.swing.Action;
+
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 
 
 public class employeeGui extends JFrame {
@@ -31,7 +41,12 @@ public class employeeGui extends JFrame {
 	private JTextField txthrs;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTable tblemployee;
-	private JTextField textField;
+	private JTextField txttotal;
+	Employee e[];
+	int size = 0;
+	NumberFormat nf;
+	private final Action action = new SwingAction_1();
+	private final Action action_1 = new SwingAction_2();
 	/**
 	 * Launch the application.
 	 */
@@ -52,6 +67,11 @@ public class employeeGui extends JFrame {
 	 * Create the frame.
 	 */
 	public employeeGui() {
+		
+		//create objects
+		e = new Employee[10];
+		nf = NumberFormat.getCurrencyInstance();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 300, 500);
 		contentPane = new JPanel();
@@ -93,12 +113,22 @@ public class employeeGui extends JFrame {
 		contentPane.add(panel);
 		
 		JRadioButton rdbtnFullTime = new JRadioButton("Full Time");
+		rdbtnFullTime.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		rdbtnFullTime.setAction(action_1);
 		buttonGroup.add(rdbtnFullTime);
 		rdbtnFullTime.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		rdbtnFullTime.setBackground(Color.LIGHT_GRAY);
 		panel.add(rdbtnFullTime);
 		
 		JRadioButton rdbtnPartTime = new JRadioButton("Part Time");
+		rdbtnPartTime.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		rdbtnPartTime.setAction(action);
 		rdbtnPartTime.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		rdbtnPartTime.setBackground(Color.LIGHT_GRAY);
 		buttonGroup.add(rdbtnPartTime);
@@ -107,17 +137,49 @@ public class employeeGui extends JFrame {
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String choice = buttonGroup.getSelection().getActionCommand();
-				//put choice in table
-				tblemployee.setValueAt(choice, 0, 1);
-				tblemployee.setValueAt("You Chose", 0, 0);
+				Employee temp;
+				String nm;
+				String type;
+				int hours = 0;
+				double rate;
+				try{
+					nm = txtname.getText();
+					hours = Integer.parseInt(txthrs.getText());
+					rate = Double.parseDouble(txtrate.getText());
+					type = buttonGroup.getSelection().getActionCommand();
+				}catch(Exception e){
+					JOptionPane.showMessageDialog(null, this, "Must fill out all fields on form correctly", hours);
+					return;
+				}
+				System.out.println(type);
+				if(type.equals("FT")){
+					temp = new FullTimeEmployee();
+				}
+				else temp = new PartTimeEmployee();
+				if (temp.setName(nm) && temp.setHours(hours) && temp.setHours(rate)){	
+					e[size] = temp;
+					tblemployee.setValueAt(temp.getName(), size, 0);
+					tblemployee.setValueAt(nf.format(temp.getPay()), size, 1);
+					size++;
+					txttotal.setText(nf.format(Employee.getTotalPay()));
+				}
+				else {
+					String error = "ERROR\n=====\n";
+					if (temp.setName(nm) == false) error += "Name: " + Employee.getNameRules() + "\n";
 					
+				}
+				
 			}
 		});
 		btnAdd.setBounds(44, 216, 89, 23);
 		contentPane.add(btnAdd);
 		
 		JButton btnQuit = new JButton("Quit");
+		btnQuit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
 		btnQuit.setBounds(143, 216, 89, 23);
 		contentPane.add(btnQuit);
 		
@@ -154,14 +216,32 @@ public class employeeGui extends JFrame {
 		lblTotalPay.setBounds(10, 436, 46, 14);
 		contentPane.add(lblTotalPay);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField.setForeground(Color.WHITE);
-		textField.setText("$0.00");
-		textField.setBackground(Color.BLACK);
-		textField.setBounds(80, 433, 194, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txttotal = new JTextField();
+		txttotal.setEditable(false);
+		txttotal.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txttotal.setForeground(Color.WHITE);
+		txttotal.setText("$0.00");
+		txttotal.setBackground(Color.BLACK);
+		txttotal.setBounds(80, 433, 194, 20);
+		contentPane.add(txttotal);
+		txttotal.setColumns(10);
+	}
+	private class SwingAction_1 extends AbstractAction {
+		public SwingAction_1() {
+			putValue(ACTION_COMMAND_KEY, "PT");
+			putValue(NAME, "Part Time");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+		}
+	}
+	private class SwingAction_2 extends AbstractAction {
+		public SwingAction_2() {
+			putValue(ACTION_COMMAND_KEY, "FT");
+			putValue(NAME, "Full Time");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+		}
 	}
 }
